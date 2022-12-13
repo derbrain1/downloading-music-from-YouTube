@@ -7,9 +7,13 @@ import time
 # multithreaded downloading and converting
 def start(link,i):
     #downloading videos from youtube
-    yt = YouTube(link)
-    stream = yt.streams.get_by_itag(22)
-    stream.download(filename=f'video{i}.mp4')
+    try:
+        yt = YouTube(link)
+        stream = yt.streams.get_by_itag(22)
+        stream.download(filename=f'video{i}.mp4')
+    except:
+        return print('Invalid url')
+        
     #convert video to audio file
     video = moviepy.editor.VideoFileClip(f'video{i}.mp4')
     audio = video.audio
